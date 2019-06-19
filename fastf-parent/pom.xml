@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.6.RELEASE</version>
+    </parent>
+
+
+    <groupId>com.fastf</groupId>
+    <artifactId>fastf-parent</artifactId>
+    <version>1.0.0.RELEASE</version>
+    <packaging>pom</packaging>
+
+    <name>Fast Future Parent</name>
+    <description>沣数快速开发框架 - 最底层基础框架，该框架被其他maven项目所引用。框架中包含各种包的版本定义\parent节点的版本定义\各种编译要求定义\各种打包部署编译定义</description>
+
+    <properties>
+
+        <FastFuture.path>/Users/ming/java/workspace/FastFuture</FastFuture.path>
+
+        <!-- common version setting -->
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <commons-io.version>2.6</commons-io.version>
+        <commons-fileupload.version>1.3.1</commons-fileupload.version>
+        <commons-codec.version>1.10</commons-codec.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <commons-text.version>1.6</commons-text.version>
+
+
+        <ruedigermoeller-fst.version>2.56</ruedigermoeller-fst.version>
+        <json.version>20170516</json.version>
+        <dozer.version>5.5.1</dozer.version>
+        <poi.version>3.14</poi.version>
+
+        <!-- framework version setting -->
+        <mybatis.version>3.4.6</mybatis.version>
+        <mybatis.pagehelper.version>1.2.8</mybatis.pagehelper.version>
+        <mybatis-spring.version>1.3.2</mybatis-spring.version>
+        <jsqlparser.version>1.1</jsqlparser.version>
+        <druid.version>1.1.11</druid.version>
+        <shiro.version>1.4.0</shiro.version>
+        <beetl.version>2.8.7</beetl.version>
+        <ehcache-web.version>2.0.4</ehcache-web.version>
+        <quartz.version>2.2.3</quartz.version>
+
+        <flowable.version>6.4.0</flowable.version>
+
+        <!-- environment setting -->
+        <java.version>1.8</java.version>
+        <maven.test.skip>true</maven.test.skip>
+        <eclipse-plugin-download-sources>false</eclipse-plugin-download-sources>
+        <eclipse-plugin-download-javadocs>false</eclipse-plugin-download-javadocs>
+
+    </properties>
+
+    <dependencies>
+
+        <!-- WEB begin-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- WEB end-->
+
+        <!-- 代码简化器-->
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.22</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+    </dependencies>
+
+    <build>
+
+        <plugins>
+
+            <!-- Compiler 插件, 设定JDK版本 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <showWarnings>true</showWarnings>
+                    <!-- 					<compilerArguments> -->
+                    <!-- 						<verbose /> 输出有关编译器正在执行的操作的消息 -->
+                    <!-- 						<bootclasspath>${JAVA_HOME}\jre\lib\rt.jar;${JAVA_HOME}\jre\lib\jce.jar</bootclasspath> -->
+                    <!-- 					</compilerArguments> -->
+                </configuration>
+            </plugin>
+
+            <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!-- <phase>prepare-package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals> -->
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <!-- Add directory entries -->
+                                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                    <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                    <addClasspath>true</addClasspath>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- resource插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+
+            <!-- install插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+            </plugin>
+
+            <!-- clean插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+            </plugin>
+
+            <!-- ant插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+            </plugin>
+
+            <!-- dependency插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <localCheckout>false</localCheckout>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <checkModificationExcludeList>*.*</checkModificationExcludeList>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.9.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <excludes>**/*.java, **/*.xml</excludes>
+                    <attach>false</attach>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <configuration> <!-- add this to disable checking -->
+                            <doclint>none</doclint>
+                            <quiet>true</quiet>
+                            <failOnError>false</failOnError>
+                            <failOnWarnings>false</failOnWarnings>
+                            <!--<additionalparam>-Xdoclint:none</additionalparam>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+
+            <plugins>
+
+                <!-- 打包插件, war包名称不带版本号 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <configuration>
+                        <packagingExcludes></packagingExcludes>
+                        <warSourceExcludes></warSourceExcludes>
+                        <webappDirectory>${project.build.directory}/${project.artifactId}</webappDirectory>
+                        <warName>${project.artifactId}</warName>
+                        <outputFileNameMapping>@{artifactId}@-@{baseVersion}@.@{extension}@</outputFileNameMapping>
+                        <archive>
+                            <addMavenDescriptor>false</addMavenDescriptor>
+                        </archive>
+                    </configuration>
+                </plugin>
+
+                <!-- Eclipse 插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <configuration>
+                        <downloadSources>${eclipse-plugin-download-sources}</downloadSources>
+                        <downloadJavadocs>${eclipse-plugin-download-javadocs}</downloadJavadocs>
+                        <wtpversion>2.0</wtpversion>
+                        <jeeversion>6.0</jeeversion>
+                        <additionalConfig>
+                            <file>
+                                <name>.settings/org.eclipse.core.resources.prefs</name>
+                                <content>
+                                    <![CDATA[eclipse.preferences.version=1${line.separator}encoding/<project>=${project.build.sourceEncoding}${line.separator}]]>
+                                </content>
+                            </file>
+                        </additionalConfig>
+                        <additionalProjectnatures>
+                            <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                        </additionalProjectnatures>
+                    </configuration>
+                </plugin>
+
+
+                <!-- YUI Compressor (CSS/JS压缩) -->
+                <plugin>
+                    <groupId>net.alchim31.maven</groupId>
+                    <artifactId>yuicompressor-maven-plugin</artifactId>
+                    <version>1.5.1</version>
+                    <executions>
+                        <execution>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>compress</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                        <jswarn>false</jswarn>
+                        <nosuffix>true</nosuffix>
+                        <linebreakpos>30000</linebreakpos>
+                        <force>true</force>
+                        <includes>
+                            <include>**/*.js</include>
+                            <include>**/*.css</include>
+                        </includes>
+                        <excludes>
+                            <exclude>**/*.min.js</exclude>
+                            <exclude>**/*.min.css</exclude>
+                        </excludes>
+                        <!-- 					<aggregations> -->
+                        <!-- 						<aggregation> -->
+                        <!-- 							<removeIncluded>true</removeIncluded> -->
+                        <!-- 							<insertNewLine>true</insertNewLine> -->
+                        <!-- 							<inputDir>${project.build.directory}/${project.build.finalName}</inputDir> -->
+                        <!-- 							<output>${project.build.directory}/${project.build.finalName}/app/js/app.pack.js</output> -->
+                        <!-- 							<includes> -->
+                        <!-- 								<include>app/js/app*.js</include> -->
+                        <!-- 							</includes> -->
+                        <!-- 							<excludes> -->
+                        <!-- 								<exclude>**/**min.js</exclude> -->
+                        <!-- 							</excludes> -->
+                        <!-- 						</aggregation> -->
+                        <!-- 					</aggregations> -->
+                    </configuration>
+                </plugin>
+
+            </plugins>
+
+        </pluginManagement>
+
+        <!-- 资源文件配置 -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
+    </build>
+
+    <developers>
+        <developer>
+            <id>fastf2018</id>
+            <name>fastf2018</name>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/fast-future/fast-future.git</connection>
+        <developerConnection>scm:git:git@github.com/fast-future/fast-future.git</developerConnection>
+        <url>https://github.com/fast-future/fast-future</url>
+        <tag>master</tag>
+    </scm>
+
+    <organization>
+        <name>Fast Future</name>
+        <url>http://www.fastf.cn</url>
+    </organization>
+
+    <repositories>
+
+        <repository>
+            <id>aliyun-repos</id>
+            <name>Aliyun Repository</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+        <repository>
+            <id>sonatype-repos</id>
+            <name>Sonatype Repository</name>
+            <url>https://oss.sonatype.org/content/groups/public</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+        <repository>
+            <id>sonatype-repos-s</id>
+            <name>Sonatype Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases><enabled>false</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+
+    </repositories>
+
+    <pluginRepositories>
+
+        <pluginRepository>
+            <id>aliyun-repos</id>
+            <name>Aliyun Repository</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+
+    </pluginRepositories>
+
+    <profiles>
+
+        <!-- 打包项目 -->
+        <profile>
+            <id>package</id>
+            <build>
+                <plugins>
+                    <!-- YUI Compressor (CSS/JS压缩) -->
+                    <plugin>
+                        <groupId>net.alchim31.maven</groupId>
+                        <artifactId>yuicompressor-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- 部署项目 -->
+        <profile>
+            <id>deploy</id>
+            <build>
+                <plugins>
+                    <!-- YUI Compressor (CSS/JS压缩) -->
+                    <plugin>
+                        <groupId>net.alchim31.maven</groupId>
+                        <artifactId>yuicompressor-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+
+        </profile>
+
+        <!-- 部署项目 sonatype -->
+        <profile>
+            <id>sonatype</id>
+            <!-- 用于 mvn deploy 上传私服时候使用，其中id需要与 maven中的settings.xml用户管理节点的ID相同 -->
+            <distributionManagement>
+                <repository>
+                    <id>sonatype</id>
+                    <name>releases</name>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>sonatype</id>
+                    <name>snapshots</name>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>fastf-snapshots</id>
+            <name>repo-snapshot</name>
+            <url>http://39.108.185.115:889/nexus/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>fastf-releases</id>
+            <name>repo-release</name>
+            <url>http://39.108.185.115:889/nexus/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+</project>
